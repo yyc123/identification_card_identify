@@ -1,6 +1,0 @@
-framework module AipOcrSdk {
-  umbrella header "AipOcrSdk.h"
-
-  export *
-  module * { export * }
-}
