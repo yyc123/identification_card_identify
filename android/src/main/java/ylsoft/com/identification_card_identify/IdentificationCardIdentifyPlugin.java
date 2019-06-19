@@ -71,10 +71,10 @@ public class IdentificationCardIdentifyPlugin implements MethodCallHandler{
 
   private boolean checkGalleryPermission() {
     int ret = ActivityCompat.checkSelfPermission(mContext, Manifest.permission
-            .READ_EXTERNAL_STORAGE);
+            .WRITE_EXTERNAL_STORAGE);
     if (ret != PackageManager.PERMISSION_GRANTED) {
       ActivityCompat.requestPermissions(mContext,
-              new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+              new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
               PERMISSIONS_EXTERNAL_STORAGE);
       return false;
     }
