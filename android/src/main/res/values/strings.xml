@@ -1,0 +1,10 @@
+<!--
+  ~ Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+  -->
+<resources>
+    <string name="idCardLabel">身份证识别</string>
+    <string name="bankCardLabel">银行卡识别</string>
+    <string name="generalLabel">通用文字识别</string>
+    <string name="camera_permission_required">本功能需要相机权限！</string>
+    <string name="storage_permission_required">本功能需要存储权限！</string>
+</resources>

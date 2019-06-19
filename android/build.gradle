@@ -1,0 +1,39 @@
+group 'ylsoft.com.identification_card_identify'
+version '1.0-SNAPSHOT'
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+    }
+}
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+}
+apply plugin: 'com.android.library'
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 16
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies {
+    implementation files('libs/ocr-sdk.jar')
+    implementation files('libs/license.jar')
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'top.zibin:Luban:1.1.8'
+}
