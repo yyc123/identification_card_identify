@@ -9,17 +9,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15b4aa1c-8ba5-42ae-8dd5-89dff6702282" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/ylsoft/com/identification_card_identify/IdentificationCardIdentifyPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/ylsoft/com/identification_card_identify/IdentificationCardIdentifyPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/identification_card_identify/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/identification_card_identify/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/identification_card_identify/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/identification_card_identify/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/identification_card_identify/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/identification_card_identify/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/identification_card_identify/.packages" afterDir="false" />
-    </list>
+    <list default="true" id="15b4aa1c-8ba5-42ae-8dd5-89dff6702282" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
@@ -40,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/android/src/main/java/ylsoft/com/identification_card_identify/IdentificationCardIdentifyPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4076">
-              <caret line="257" column="49" selection-start-line="257" selection-start-column="49" selection-end-line="257" selection-end-column="49" />
+            <state relative-caret-position="242">
+              <caret line="263" column="29" selection-start-line="263" selection-start-column="10" selection-end-line="263" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -98,6 +88,8 @@
       <find>getPlatformVersion</find>
       <find>androidx</find>
       <find>alertDialog</find>
+      <find>mresult</find>
+      <find>results.put(&quot;result</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -128,7 +120,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+    <option name="x" value="70" />
+    <option name="y" value="178" />
     <option name="width" value="1920" />
     <option name="height" value="992" />
   </component>
@@ -287,7 +280,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="992" extended-state="0" />
+    <frame x="70" y="178" width="1920" height="992" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" />
@@ -423,8 +416,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/android/src/main/java/ylsoft/com/identification_card_identify/IdentificationCardIdentifyPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4076">
-          <caret line="257" column="49" selection-start-line="257" selection-start-column="49" selection-end-line="257" selection-end-column="49" />
+        <state relative-caret-position="242">
+          <caret line="263" column="29" selection-start-line="263" selection-start-column="10" selection-end-line="263" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

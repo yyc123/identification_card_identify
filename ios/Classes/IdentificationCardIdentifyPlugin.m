@@ -24,7 +24,6 @@ void (^_failHandler)(NSError *);
           NSDictionary *arguments = call.arguments;
           [[AipOcrService shardService] authWithAK:arguments[@"AK"] andSK:arguments[@"SK"]];
       }
-      //      self.result = result;
   } else if ([@"IDCard_identify" isEqualToString:call.method]){
       if (call.arguments) {
           NSString *type = call.arguments;
@@ -40,7 +39,7 @@ void (^_failHandler)(NSError *);
 
 - (void)cardOCR:(NSString *)cardType {
     
-    [self configCallback];
+    [self configCallback:cardType];
     UIViewController * vc;
     if ([cardType isEqualToString:@"CardTypeIdCardFont"]) {
        vc =  [self goCardTypeIdCardFont];
@@ -91,12 +90,32 @@ void (^_failHandler)(NSError *);
     return path;
 }
 
-- (void)configCallback {
+- (void)configCallback:(NSString *)cardType {
     __weak typeof(self) weakSelf = self;
     // 这是默认的识别成功的回调
     _successHandler = ^(id result){
         NSLog(@"%@", result);
-        self.result(@{@"image":self.imageDagaPath,@"result":result[@"words_result"]});
+        NSDictionary *words_result =result[@"words_result"];
+        NSDictionary *resultV;
+        if ([cardType isEqualToString:@"CardTypeIdCardFont"]) {
+            resultV = @{@"姓名":words_result[@"姓名"][@"words"],
+                                      @"户籍地":words_result[@"住址"][@"words"],
+                                      @"身份证号":words_result[@"住址"][@"words"],
+                                      @"生日":words_result[@"出生"][@"words"],
+                                      };
+        }else if ([cardType isEqualToString:@"CardTypeIdCardBack"]) {
+            resultV = @{@"签发机关":words_result[@"签发机关"][@"words"],
+                        @"有效期":words_result[@"失效日期"][@"words"],
+                        @"签发日期":words_result[@"签发日期"][@"words"],
+                        };
+        }
+      
+        if(words_result.count >0){
+            self.result(@{@"image":self.imageDagaPath,@"result":resultV});
+
+        }else{
+            self.result(@{@"error":@"失败",@"code":@"-1"});
+        }
         [weakSelf.hostViewController dismissViewControllerAnimated:YES completion:nil];
 
     };

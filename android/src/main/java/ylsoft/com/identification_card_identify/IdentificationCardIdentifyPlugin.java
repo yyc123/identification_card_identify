@@ -245,7 +245,7 @@ public class IdentificationCardIdentifyPlugin implements MethodCallHandler{
     });
   }
 
-  private static void recIDCard(String idCardSide, String filePath) {
+  private static void recIDCard(final String idCardSide, String filePath) {
     IDCardParams param = new IDCardParams();
     param.setImageFile(new File(filePath));
     // 设置身份证正反面
@@ -259,9 +259,21 @@ public class IdentificationCardIdentifyPlugin implements MethodCallHandler{
       @Override
       public void onResult(IDCardResult result) {
         if (result != null) {
-          Map<String,String> results = new HashMap();
+          Map results = new HashMap();
           results.put("image",picPath);
-          results.put("result",result.toString());
+          Map<String,String> resV = new HashMap<>();
+          if (idCardSide.equals(IDCardParams.ID_CARD_SIDE_FRONT)){
+            resV.put("姓名",result.getName().getWords());
+            resV.put("户籍地",result.getAddress().getWords());
+            resV.put("身份证号",result.getIdNumber().getWords());
+            resV.put("生日",result.getBirthday().getWords());
+
+          }else  if (idCardSide.equals(IDCardParams.ID_CARD_SIDE_BACK)){
+            resV.put("签发机关",result.getIssueAuthority().getWords());
+            resV.put("有效期",result.getExpiryDate().getWords());
+          }
+
+          results.put("result",resV);
           mResult.success(results);
         }
       }
