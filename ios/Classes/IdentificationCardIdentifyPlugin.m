@@ -97,20 +97,27 @@ void (^_failHandler)(NSError *);
         NSLog(@"%@", result);
         NSDictionary *words_result =result[@"words_result"];
         NSDictionary *resultV;
+      
         if ([cardType isEqualToString:@"CardTypeIdCardFont"]) {
+            if (!words_result[@"姓名"]||!words_result[@"住址"]||!words_result[@"出生"]||!words_result[@"公民身份号码"]) {
+                return ;
+            }
             resultV = @{@"姓名":words_result[@"姓名"][@"words"],
                                       @"户籍地":words_result[@"住址"][@"words"],
-                                      @"身份证号":words_result[@"住址"][@"words"],
+                                      @"身份证号":words_result[@"公民身份号码"][@"words"],
                                       @"生日":words_result[@"出生"][@"words"],
                                       };
         }else if ([cardType isEqualToString:@"CardTypeIdCardBack"]) {
+            if (!words_result[@"签发机关"]||!words_result[@"失效日期"]||!words_result[@"签发日期"]) {
+                return ;
+            }
             resultV = @{@"签发机关":words_result[@"签发机关"][@"words"],
                         @"有效期":words_result[@"失效日期"][@"words"],
                         @"签发日期":words_result[@"签发日期"][@"words"],
                         };
         }
       
-        if(words_result.count >0){
+        if(resultV.count >0){
             self.result(@{@"image":self.imageDagaPath,@"result":resultV});
 
         }else{
