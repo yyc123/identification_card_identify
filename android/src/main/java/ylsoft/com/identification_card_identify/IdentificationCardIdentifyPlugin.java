@@ -270,7 +270,9 @@ public class IdentificationCardIdentifyPlugin implements MethodCallHandler{
 
           }else  if (idCardSide.equals(IDCardParams.ID_CARD_SIDE_BACK)){
             resV.put("签发机关",result.getIssueAuthority().getWords());
-            resV.put("有效期",result.getExpiryDate().getWords());
+            resV.put("签发日期",result.getSignDate().getWords());
+           resV.put("有效期",result.getExpiryDate().getWords());
+
           }
 
           results.put("result",resV);
