@@ -43,9 +43,11 @@ void (^_failHandler)(NSError *);
     UIViewController * vc;
     if ([cardType isEqualToString:@"CardTypeIdCardFont"]) {
        vc =  [self goCardTypeIdCardFont];
-    }else {
+    } else if ([cardType isEqualToString:@"CardTypeBankCard"]){
+        vc = [self goBankCardOCR];
+    }
+    else {
         vc = [self goCardTypeIdCardBack];
-        
         
     }
     [self.hostViewController presentViewController:vc animated:YES completion:nil];
@@ -65,15 +67,23 @@ void (^_failHandler)(NSError *);
 
 
 - (UIViewController *)goCardTypeIdCardBack {
-   return  [AipCaptureCardVC ViewControllerWithCardType:CardTypeIdCardBack
-                                 andImageHandler:^(UIImage *image) {
-                                    NSString *path =  [self saveImage:image];
-                                     self.imageDagaPath  = path;
-                                     [[AipOcrService shardService] detectIdCardBackFromImage:image
-                                                                                 withOptions:nil
-                                                                              successHandler:_successHandler
-                                                                                 failHandler:_failHandler];
-                                 }];
+    return  [AipCaptureCardVC ViewControllerWithCardType:CardTypeIdCardBack
+                                         andImageHandler:^(UIImage *image) {
+                                             NSString *path =  [self saveImage:image];
+                                             self.imageDagaPath  = path;
+                                             [[AipOcrService shardService] detectIdCardBackFromImage:image withOptions:nil successHandler:_successHandler failHandler:_failHandler];
+                                             
+                                         }];
+}
+
+- (UIViewController *)goBankCardOCR {
+    return  [AipCaptureCardVC ViewControllerWithCardType:CardTypeBankCard
+                                         andImageHandler:^(UIImage *image) {
+                                             NSString *path =  [self saveImage:image];
+                                             self.imageDagaPath  = path;
+                                             [[AipOcrService shardService] detectBankCardFromImage:image successHandler:_successHandler failHandler:_failHandler];
+                                             
+                                         }];
 }
 
 - (NSString *)saveImage:(UIImage*)image {
@@ -100,6 +110,8 @@ void (^_failHandler)(NSError *);
       
         if ([cardType isEqualToString:@"CardTypeIdCardFont"]) {
             if (!words_result[@"姓名"]||!words_result[@"住址"]||!words_result[@"出生"]||!words_result[@"公民身份号码"]) {
+                [weakSelf dismissViewController:@{@"error":@"失败",@"code":@"-1"}];
+
                 return ;
             }
             resultV = @{@"姓名":words_result[@"姓名"][@"words"],
@@ -109,31 +121,44 @@ void (^_failHandler)(NSError *);
                                       };
         }else if ([cardType isEqualToString:@"CardTypeIdCardBack"]) {
             if (!words_result[@"签发机关"]||!words_result[@"失效日期"]||!words_result[@"签发日期"]) {
+                [weakSelf dismissViewController:@{@"error":@"失败",@"code":@"-1"}];
+
                 return ;
             }
             resultV = @{@"签发机关":words_result[@"签发机关"][@"words"],
                         @"有效期":words_result[@"失效日期"][@"words"],
                         @"签发日期":words_result[@"签发日期"][@"words"],
                         };
+        } else if ([cardType isEqualToString:@"CardTypeBankCard"]) {
+            NSDictionary *words_result =result[@"result"];
+            
+            if (!words_result[@"bank_card_type"]||!words_result[@"bank_name"]||!words_result[@"bank_card_number"]) {
+                [weakSelf dismissViewController:@{@"error":@"失败",@"code":@"-1"}];
+                
+                return ;
+            }
+            resultV = @{@"卡号":words_result[@"bank_card_number"],
+                        @"类型":words_result[@"bank_card_type"],
+                        @"发卡行":words_result[@"bank_name"],
+                        };
         }
       
-        if(resultV.count >0){
-            self.result(@{@"image":self.imageDagaPath,@"result":resultV});
-
-        }else{
-            self.result(@{@"error":@"失败",@"code":@"-1"});
-        }
-        [weakSelf.hostViewController dismissViewControllerAnimated:YES completion:nil];
+        [weakSelf dismissViewController:resultV.count > 0 ? @{@"image":self.imageDagaPath,@"result":resultV}: @{@"error":@"失败",@"code":@"-1"}];
 
     };
     
     _failHandler = ^(NSError *error){
         NSLog(@"%@", error);
         NSString *msg = [NSString stringWithFormat:@"%li:%@", (long)[error code], [error localizedDescription]];
-        self.result(@{@"error":@"失败",@"code":msg});
-        [weakSelf.hostViewController dismissViewControllerAnimated:YES completion:nil];
 
+        [weakSelf dismissViewController:@{@"error":@"失败",@"code":msg}];
     };
+}
+
+- (void)dismissViewController:(NSDictionary *)result {
+    self.result(result);
+    [self.hostViewController dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 @end

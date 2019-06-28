@@ -44,17 +44,43 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     if (callBack.length > 0) {
-      String fileString = callBack['image'];
-
-      Image _currentImage = Image.file(File(fileString));
+      String error = callBack['error'];
+      if (error != null) {
+        return MaterialApp(
+          home: Scaffold(
+            body: ListView(
+              children: <Widget>[
+                Text(callBack.toString()),
+                FlatButton(
+                  child: Text('返回'),
+                  onPressed: () {
+                    setState(() {
+                      callBack.clear();
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      }
       dynamic strResult = callBack['result'];
-
+      String fileString = callBack['image'];
+      Image _currentImage = Image.file(File(fileString));
       return MaterialApp(
         home: Scaffold(
           body: ListView(
             children: <Widget>[
               Text(strResult.toString()),
               _currentImage,
+              FlatButton(
+                child: Text('返回'),
+                onPressed: () {
+                  setState(() {
+                    callBack.clear();
+                  });
+                },
+              ),
             ],
           ),
         ),
@@ -84,6 +110,17 @@ class _MyAppState extends State<MyApp> {
                 child: Text('反面'),
                 onPressed: () {
                   IdentificationCardIdentify.idcardIdentifyBack()
+                      .then((result) {
+                    setState(() {
+                      callBack = result;
+                    });
+                  });
+                },
+              ),
+              FlatButton(
+                child: Text('银行卡'),
+                onPressed: () {
+                  IdentificationCardIdentify.idcardIdentifyBankCard()
                       .then((result) {
                     setState(() {
                       callBack = result;

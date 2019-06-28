@@ -37,11 +37,12 @@ class IdentificationCardIdentify {
       "SK": sk,
     });
   }
+
   static Future<Map> idcardIdentifyFont() async {
     Map result;
     try {
-      result = await _channel.invokeMethod(
-          'IDCard_identify', 'CardTypeIdCardFont');
+      result =
+          await _channel.invokeMethod('IDCard_identify', 'CardTypeIdCardFont');
     } catch (e) {
       print('调用失败');
     }
@@ -51,12 +52,22 @@ class IdentificationCardIdentify {
   static Future<Map> idcardIdentifyBack() async {
     Map result;
     try {
-      result = await _channel.invokeMethod(
-          'IDCard_identify', 'CardTypeIdCardBack');
+      result =
+          await _channel.invokeMethod('IDCard_identify', 'CardTypeIdCardBack');
     } catch (e) {
       print('调用失败');
     }
     return result;
   }
 
+  static Future<Map> idcardIdentifyBankCard() async {
+    Map result;
+    try {
+      result =
+          await _channel.invokeMethod('IDCard_identify', 'CardTypeBankCard');
+    } catch (e) {
+      print('调用失败');
+    }
+    return result;
+  }
 }
